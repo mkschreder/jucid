@@ -169,6 +169,9 @@ int orange_luaobject_call(struct orange_luaobject *self, struct orange_session *
 		blob_put_string(out, "error"); 
 		blob_offset_t t = blob_open_table(out); 
 		blob_put_string(out, "str"); 
+		char error_msg[255];
+		sprintf(error_msg,"error calling %s: %s\n", method, lua_tostring(self->lua, -1));
+		blob_put_string(out, error_msg);
 		blob_put_string(out, "LUA error in backend function"); 
 		blob_put_string(out, "code"); 
 		blob_put_int(out, lua_tointeger(self->lua, -1));
